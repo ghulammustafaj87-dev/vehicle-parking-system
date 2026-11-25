@@ -1,0 +1,85 @@
+import java.util.Scanner;
+public class vehicle_parking {
+    static Scanner sc = new Scanner(System.in);
+    static String[] vehicles = new String[30];
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\n=== PARKING SYSTEM ===");
+            System.out.println("1. Park Vehicle");
+            System.out.println("2. pickup vehicle");
+            System.out.println("3. Show Parking Slots");
+            System.out.println("4. Exit");
+            System.out.print("Enter Choice: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:parkVehicle();break;
+                case 2:exitVehicle();break;
+                case 3:showSlots();break;
+                case 4:
+                    System.out.println("Thank You!");
+                    return;
+                default:
+                    System.out.println("Invalid Choice!");
+            }}}
+    static void parkVehicle() {
+        System.out.print("Enter Vehicle Name: ");
+        String name = sc.next();
+        for (int i = 0; i < 30; i++) {
+            if (vehicles[i] == null) {
+                vehicles[i] = name;
+                System.out.println("Vehicle Parked Successfully!");
+                System.out.println("Slot Number: " + (i + 1));
+                return;
+            }}
+        System.out.println("Parking Full!");
+    }
+    static void exitVehicle() {
+        System.out.print("Enter Slot Number: ");
+        int slot = sc.nextInt();
+        if (slot < 1 || slot > 30 ||
+            vehicles[slot - 1] == null) {
+            System.out.println("Slot is Empty or Invalid!");
+            return;
+        }
+        System.out.print("Enter Parking Hours: ");
+        int hours = sc.nextInt();
+        int fee = hours * 200;
+        System.out.println("Vehicle: " + vehicles[slot - 1]);
+        System.out.println("Total Fee: Rs. " + fee);
+        System.out.println("\n1. Cash Payment");
+        System.out.println("2. Online Payment");
+        System.out.print("Select Payment: ");
+        int pay = sc.nextInt();
+        if (pay == 1) {
+            System.out.println("Cash Payment Successful!");
+        } else if (pay == 2) {
+            System.out.println("1. JazzCash");
+            System.out.println("2. EasyPaisa");
+            System.out.println("3. Debit Card");
+            System.out.print("Select Method: ");
+            int method = sc.nextInt();
+            if (method < 1 || method > 3) {
+                System.out.println("Invalid Payment Method!");
+                return;
+            }
+            System.out.println("Online Payment Successful!");
+        } else {
+            System.out.println("Invalid Payment!");
+            return;
+        }
+        System.out.println("Receipt Generated!");
+        System.out.println("Paid Amount: Rs. " + fee);
+        vehicles[slot - 1] = null;
+        System.out.println("Slot " + slot + " is now Available!");
+    }
+    static void showSlots() {
+        System.out.println("\n=== PARKING STATUS ===");
+        for (int i = 0; i < 30; i++) {
+            if (vehicles[i] == null) {
+
+                System.out.println("Slot " + (i + 1)
+                        + " : Available");
+            } else {
+                System.out.println("Slot " + (i + 1)+ " : Occupied (" + vehicles[i] + ")");
+            }}}}
